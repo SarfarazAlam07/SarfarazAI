@@ -1,14 +1,15 @@
-// const apiKey = "AIzaSyBU-XXAvGLZIg8TjA5EcuiOljOG5Vv_XIQ"
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: "AIzaSyBU-XXAvGLZIg8TjA5EcuiOljOG5Vv_XIQ" });
 
-async function main() {
+async function main(prompt) {
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
-    contents: "Explain how AI works in a few words",
+    contents: prompt,
   });
-  console.log(response.text);
+  // Adjust this line based on the actual response structure
+  console.log(response.candidates?.[0]?.content?.parts?.[0]?.text || "No response text found.");
+  return response.candidates?.[0]?.content?.parts?.[0]?.text || "No response text found."
 }
 
-await main();
+export default main;
