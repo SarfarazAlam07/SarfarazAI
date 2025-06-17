@@ -183,6 +183,9 @@ p a{
 }
 
 @media (max-width: 600px) {
+    .main{
+        max-height: 100vh;
+    }
     .main-bottom input{
         flex: none;
         width: 150px;
@@ -197,15 +200,12 @@ p a{
         grid-template-columns: repeat(auto-fill, minmax(150px , 1fr));
     }
     .main .greet{
-        font-size: 28px;
-        margin: 20px 0px;
+        font-size: 33px;
+        margin: 5px 0px;
+        padding: auto;
     }
 
     .search-box div{
         gap: 5px;
-    }
-    .main .greet{
-        font-size: 36px;
-        margin: 20px 0px;
     }
 }

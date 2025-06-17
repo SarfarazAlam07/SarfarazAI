@@ -76,12 +76,12 @@ const Main = () => {
             <div>
               <img src={assets.gallery_icon} alt="" />
               <img src={assets.mic_icon} alt="" />
-              <img
+              {input?             <img
                 onClick={() => onSent(input)}
                 src={assets.send_icon}
                 alt=""
                 style={{ cursor: "pointer" }}
-              />
+              />:null}
             </div>
           </div>
           <p className="bottom-info">
