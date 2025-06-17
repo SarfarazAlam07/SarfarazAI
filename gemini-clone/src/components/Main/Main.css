@@ -199,6 +199,10 @@ p a{
     .main .cards{
         grid-template-columns: repeat(auto-fill, minmax(150px , 1fr));
     }
+    .main .card{
+        height: 150px;
+    }
+    
     .main .greet{
         font-size: 33px;
         margin: 5px 0px;
