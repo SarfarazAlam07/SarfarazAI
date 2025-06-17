@@ -8,7 +8,7 @@ async function main(prompt) {
     contents: prompt,
   });
   // Adjust this line based on the actual response structure
-  console.log(response.candidates?.[0]?.content?.parts?.[0]?.text || "No response text found.");
+  // console.log(response.candidates?.[0]?.content?.parts?.[0]?.text || "No response text found.");
   return response.candidates?.[0]?.content?.parts?.[0]?.text || "No response text found."
 }
 
