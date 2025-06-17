@@ -5,7 +5,7 @@ const Context = createContext();
 
 const ContextProvider = (props) => {
 
-    const [input , setInput] = useState("");
+    const [input, setInput] = useState("");
     const [recentPrompt, setRecentPrompt] = useState("");
     const [prevPrompt, setPrevPrompt] = useState([]);
     const [showResult, setShowResult] = useState(false);
@@ -13,9 +13,9 @@ const ContextProvider = (props) => {
     const [resultData, setResultData] = useState("");
 
     const delayPara = (index, nextWord) => {
-        setTimeout(function (){
-            setResultData((prev) =>prev+nextWord);
-        },75*index)
+        setTimeout(function () {
+            setResultData((prev) => prev + nextWord);
+        }, 75 * index)
     }
 
     const newChat = () => {
@@ -24,50 +24,50 @@ const ContextProvider = (props) => {
 
     }
 
-const onSent = async (prompt) => {
-    const currentPrompt = prompt || input;
-    if (currentPrompt.trim() === "") return;
+    const onSent = async (prompt) => {
+        const currentPrompt = prompt || input;
+        if (currentPrompt.trim() === "") return;
 
-    setResultData("");
-    setShowResult(true);
-    setLoading(true);
+        setResultData("");
+        setShowResult(true);
+        setLoading(true);
 
-    // Add to prevPrompt only if it's not already present
-    setPrevPrompt(prev => {
-        if (!prev.includes(currentPrompt)) {
-            return [...prev, currentPrompt];
+        // Add to prevPrompt only if it's not already present
+        setPrevPrompt(prev => {
+            if (!prev.includes(currentPrompt)) {
+                return [...prev, currentPrompt];
+            }
+            return prev;
+        });
+
+        setRecentPrompt(currentPrompt);
+
+        const response = await main(currentPrompt);
+
+        // Response formatting logic stays same
+        let responseArray = response.split("**");
+        let newResponse = "";
+        for (let i = 0; i < responseArray.length; i++) {
+            if (i === 0 || i % 2 !== 0) {
+                newResponse += responseArray[i];
+            } else {
+                newResponse += `<b>${responseArray[i]}</b>`;
+            }
         }
-        return prev;
-    });
 
-    setRecentPrompt(currentPrompt);
-
-    const response = await main(currentPrompt);
-
-    // Response formatting logic stays same
-    let responseArray = response.split("**");
-    let newResponse = "";
-    for (let i = 0; i < responseArray.length; i++) {
-        if (i === 0 || i % 2 !== 0) {
-            newResponse += responseArray[i];
-        } else {
-            newResponse += `<b>${responseArray[i]}</b>`;
+        let newResponse2 = newResponse.split("*").join("</br>");
+        let newResponseArray = newResponse2.split(" ");
+        for (let i = 0; i < newResponseArray.length; i++) {
+            const nextWord = newResponseArray[i] + " ";
+            delayPara(i, nextWord + " ");
         }
-    }
 
-    let newResponse2 = newResponse.split("*").join("</br>");
-    let newResponseArray = newResponse2.split(" ");
-    for (let i = 0; i < newResponseArray.length; i++) {
-        const nextWord = newResponseArray[i] + " ";
-        delayPara(i, nextWord + " ");
-    }
+        setLoading(false);
+        setInput("");
+    };
 
-    setLoading(false);
-    setInput("");
-};
 
-    
-    
+
 
 
     const contextValue = {
@@ -86,7 +86,7 @@ const onSent = async (prompt) => {
     }
 
 
-    return(
+    return (
         <Context.Provider value={contextValue}>
             {props.children}
         </Context.Provider>
