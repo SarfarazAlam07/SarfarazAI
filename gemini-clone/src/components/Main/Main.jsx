@@ -77,7 +77,7 @@ const Main = () => {
               <img src={assets.gallery_icon} alt="" />
               <img src={assets.mic_icon} alt="" />
               <img
-                onClick={onSent}
+                onClick={()=>onSent(input)}
                 src={assets.send_icon}
                 alt=""
                 style={{ cursor: "pointer" }}

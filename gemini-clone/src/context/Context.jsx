@@ -19,33 +19,48 @@ const ContextProvider = (props) => {
     }
 
 
-    const onSent = async (prompt) => {
-        setResultData("")
-        setLoading(true);
-        setShowResult(true);
-        setRecentPrompt(input)
-        const response = await main(input)
-        let responseArray = response.split("**");
-        let newResponse = "";
-        for (let i = 0; i < responseArray.length; i++) {
-            if(i === 0 || i%2 !== 0) {
-                newResponse += responseArray[i];
-            }
-            else {
-                newResponse += `<b>${responseArray[i]}</b>`;
-            }
-        }
-        let newResponse2 = newResponse.split("*").join("</br>");
-        let newResponseArray = newResponse2.split(" ");
-        for (let i = 0; i < newResponseArray.length; i++) {
-            const nextWord = newResponseArray[i] + " ";
-            delayPara(i, nextWord+" ");
-        }
+const onSent = async (prompt) => {
+    const currentPrompt = prompt || input;
+    if (currentPrompt.trim() === "") return;
 
-        setLoading(false);
-        setRecentPrompt(input);
-        setInput("");
+    setResultData("");
+    setShowResult(true);
+    setLoading(true);
+
+    // Add to prevPrompt only if it's not already present
+    setPrevPrompt(prev => {
+        if (!prev.includes(currentPrompt)) {
+            return [...prev, currentPrompt];
+        }
+        return prev;
+    });
+
+    setRecentPrompt(currentPrompt);
+
+    const response = await main(currentPrompt);
+
+    // Response formatting logic stays same
+    let responseArray = response.split("**");
+    let newResponse = "";
+    for (let i = 0; i < responseArray.length; i++) {
+        if (i === 0 || i % 2 !== 0) {
+            newResponse += responseArray[i];
+        } else {
+            newResponse += `<b>${responseArray[i]}</b>`;
+        }
     }
+
+    let newResponse2 = newResponse.split("*").join("</br>");
+    let newResponseArray = newResponse2.split(" ");
+    for (let i = 0; i < newResponseArray.length; i++) {
+        const nextWord = newResponseArray[i] + " ";
+        delayPara(i, nextWord + " ");
+    }
+
+    setLoading(false);
+    setInput("");
+};
+
     
     
 
