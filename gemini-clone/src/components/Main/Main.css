@@ -13,6 +13,12 @@
     padding: 20px;
     color:#585858
 }
+p a{
+    text-decoration: none;
+    cursor: pointer;
+    color:#585858
+
+}
 
 .main .nav img{
     width: 40px;
@@ -174,4 +180,32 @@
     font-size: 17px;
     font-weight: 300;
     line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+    .main-bottom input{
+        flex: none;
+        width: 150px;
+    }
+    .main-bottom img{
+        width: 20px;
+    }
+    .search-box{
+        padding: 5px 10px;
+    }
+    .main .cards{
+        grid-template-columns: repeat(auto-fill, minmax(150px , 1fr));
+    }
+    .main .greet{
+        font-size: 28px;
+        margin: 20px 0px;
+    }
+
+    .search-box div{
+        gap: 5px;
+    }
+    .main .greet{
+        font-size: 36px;
+        margin: 20px 0px;
+    }
 }

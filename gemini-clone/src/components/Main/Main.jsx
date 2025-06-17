@@ -17,7 +17,7 @@ const Main = () => {
   return (
     <div className="main">
       <div className="nav">
-        <p>SarfarazAI</p>
+        <p><a href="https://portfolio-web-saruu.netlify.app/">SarfarazAI</a></p>
         <img src={assets.user_icon} alt="" />
       </div>
       <div className="main-container">
